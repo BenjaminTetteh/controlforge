@@ -1,0 +1,143 @@
+account_name,system_name,role_code,role_name,role_type,risk_level,assigned_date
+aanderson,Workday,PAYROLL_VIEWER,Payroll Viewer,ReadOnly,Medium,2024-06-26
+kdarko,ServiceNow,INCIDENT_ADMIN,Incident Admin,Privileged,High,2023-12-02
+kdarko,Oracle ERP,GL_REVIEWER,General Ledger Reviewer,Business,Medium,2026-03-16
+kdarko,SAP,VENDOR_MASTER_ADMIN,Vendor Master Data Admin,Privileged,High,2025-10-13
+nthomas,Workday,HR_ADMIN,HR Administrator,Privileged,High,2025-12-23
+nthomas,Oracle ERP,GL_REVIEWER,General Ledger Reviewer,Business,Medium,2025-04-25
+nthomas,Salesforce,SALES_USER,Sales User,Business,Low,2025-01-22
+kmensah,Oracle ERP,GL_POSTER,General Ledger Poster,Business,High,2025-03-15
+kmensah,Oracle ERP,GL_POSTER,General Ledger Poster,Business,High,2025-07-27
+kmensah,SAP,PAYROLL_ADMIN,Payroll Administrator,Privileged,High,2026-04-12
+ataylor,Oracle ERP,ERP_ADMIN,ERP Administrator,Privileged,Critical,2024-04-07
+ataylor,Salesforce,SALES_ADMIN,Salesforce Admin,Privileged,High,2025-04-06
+ataylor,ServiceNow,CHANGE_APPROVER,Change Approver,Business,High,2024-06-02
+yanderson,Oracle ERP,GL_REVIEWER,General Ledger Reviewer,Business,Medium,2024-06-03
+yanderson,SAP,VENDOR_MASTER_ADMIN,Vendor Master Data Admin,Privileged,High,2024-11-10
+emoore7,Salesforce,SALES_USER,Sales User,Business,Low,2025-05-14
+emoore7,ServiceNow,INCIDENT_ADMIN,Incident Admin,Privileged,High,2025-06-15
+kwilliams,AWS IAM,BILLING_ADMIN,Billing Administrator,Privileged,High,2025-02-07
+kwilliams,Salesforce,SALES_USER,Sales User,Business,Low,2024-05-20
+kwilliams,Salesforce,SALES_ADMIN,Salesforce Admin,Privileged,High,2024-07-22
+aharris,Workday,PAYROLL_VIEWER,Payroll Viewer,ReadOnly,Medium,2024-09-29
+aharris,SAP,VENDOR_MASTER_ADMIN,Vendor Master Data Admin,Privileged,High,2025-06-24
+aharris,AWS IAM,SECURITY_AUDIT,Security Audit,ReadOnly,Medium,2024-01-30
+fboateng,Oracle ERP,ERP_ADMIN,ERP Administrator,Privileged,Critical,2025-05-19
+fboateng,ServiceNow,CHANGE_REQUESTER,Change Requester,Business,Medium,2025-01-16
+fboateng,Salesforce,SALES_ADMIN,Salesforce Admin,Privileged,High,2024-11-06
+ewhite,Salesforce,SALES_ADMIN,Salesforce Admin,Privileged,High,2024-06-08
+ewhite,SAP,VENDOR_MASTER_ADMIN,Vendor Master Data Admin,Privileged,High,2024-11-02
+ktetteh,Salesforce,SALES_USER,Sales User,Business,Low,2026-01-08
+ktetteh,AWS IAM,READ_ONLY,Read Only Access,ReadOnly,Low,2025-08-26
+ktetteh,AWS IAM,BILLING_ADMIN,Billing Administrator,Privileged,High,2026-03-19
+magyeman,AWS IAM,SECURITY_AUDIT,Security Audit,ReadOnly,Medium,2024-07-27
+dharris14,ServiceNow,CHANGE_REQUESTER,Change Requester,Business,Medium,2024-07-08
+sjohnson,AWS IAM,SECURITY_AUDIT,Security Audit,ReadOnly,Medium,2024-11-23
+sjohnson,ServiceNow,CHANGE_APPROVER,Change Approver,Business,High,2025-11-13
+sjohnson,Salesforce,SALES_ADMIN,Salesforce Admin,Privileged,High,2024-03-06
+mfrimpong,ServiceNow,CHANGE_APPROVER,Change Approver,Business,High,2025-10-15
+gthomas,Oracle ERP,GL_REVIEWER,General Ledger Reviewer,Business,Medium,2026-02-21
+gthomas,Oracle ERP,GL_POSTER,General Ledger Poster,Business,High,2023-11-27
+gthomas,SAP,PAYROLL_ADMIN,Payroll Administrator,Privileged,High,2025-11-28
+dwhite,Salesforce,SALES_USER,Sales User,Business,Low,2024-03-01
+dwhite,ServiceNow,INCIDENT_ADMIN,Incident Admin,Privileged,High,2023-12-31
+laddo,Oracle ERP,GL_REVIEWER,General Ledger Reviewer,Business,Medium,2023-12-15
+laddo,Oracle ERP,GL_REVIEWER,General Ledger Reviewer,Business,Medium,2025-11-02
+laddo,Salesforce,SALES_USER,Sales User,Business,Low,2025-01-08
+sappiah,AWS IAM,READ_ONLY,Read Only Access,ReadOnly,Low,2024-02-19
+sappiah,Oracle ERP,GL_REVIEWER,General Ledger Reviewer,Business,Medium,2024-07-11
+ajohnson21,Workday,PAYROLL_VIEWER,Payroll Viewer,ReadOnly,Medium,2026-01-24
+bjackson,Workday,HR_ADMIN,HR Administrator,Privileged,High,2025-07-09
+bjackson,Workday,PAYROLL_VIEWER,Payroll Viewer,ReadOnly,Medium,2024-10-07
+bjackson,SAP,AP_APPROVER,Accounts Payable Approver,Business,High,2025-11-10
+canderson,ServiceNow,INCIDENT_ADMIN,Incident Admin,Privileged,High,2025-11-08
+jdarko,AWS IAM,IAM_ADMIN,IAM Administrator,Privileged,Critical,2025-02-13
+jdarko,ServiceNow,CHANGE_REQUESTER,Change Requester,Business,Medium,2024-10-05
+jdarko,ServiceNow,CHANGE_REQUESTER,Change Requester,Business,Medium,2026-02-09
+rmoore,ServiceNow,CHANGE_REQUESTER,Change Requester,Business,Medium,2024-02-15
+nasante,Salesforce,SALES_ADMIN,Salesforce Admin,Privileged,High,2024-02-20
+nasante,Oracle ERP,GL_REVIEWER,General Ledger Reviewer,Business,Medium,2024-12-11
+nasante,SAP,VENDOR_MASTER_ADMIN,Vendor Master Data Admin,Privileged,High,2025-06-12
+aboateng,ServiceNow,INCIDENT_ADMIN,Incident Admin,Privileged,High,2024-03-09
+aboateng,Salesforce,SALES_ADMIN,Salesforce Admin,Privileged,High,2024-11-30
+ptetteh28,Workday,PAYROLL_VIEWER,Payroll Viewer,ReadOnly,Medium,2024-12-02
+daddo,ServiceNow,CHANGE_REQUESTER,Change Requester,Business,Medium,2024-05-29
+ewilson,ServiceNow,INCIDENT_ADMIN,Incident Admin,Privileged,High,2025-10-26
+ewilson,ServiceNow,CHANGE_APPROVER,Change Approver,Business,High,2024-07-15
+ewilson,Oracle ERP,GL_POSTER,General Ledger Poster,Business,High,2025-03-06
+swilliams,Oracle ERP,ERP_ADMIN,ERP Administrator,Privileged,Critical,2026-03-17
+swilliams,SAP,PAYROLL_ADMIN,Payroll Administrator,Privileged,High,2025-11-26
+swilliams,ServiceNow,CHANGE_APPROVER,Change Approver,Business,High,2026-02-21
+jwhite,ServiceNow,CHANGE_REQUESTER,Change Requester,Business,Medium,2025-09-09
+jwhite,ServiceNow,CHANGE_REQUESTER,Change Requester,Business,Medium,2025-05-03
+rboateng,Workday,PAYROLL_VIEWER,Payroll Viewer,ReadOnly,Medium,2025-07-29
+rboateng,SAP,PAYROLL_ADMIN,Payroll Administrator,Privileged,High,2026-03-25
+ifrimpong,Oracle ERP,GL_POSTER,General Ledger Poster,Business,High,2025-04-20
+ifrimpong,AWS IAM,IAM_ADMIN,IAM Administrator,Privileged,Critical,2024-02-04
+ifrimpong,Salesforce,SALES_ADMIN,Salesforce Admin,Privileged,High,2024-03-02
+happiah35,AWS IAM,BILLING_ADMIN,Billing Administrator,Privileged,High,2023-12-06
+vsarpong,Oracle ERP,GL_POSTER,General Ledger Poster,Business,High,2025-08-12
+mtetteh,ServiceNow,INCIDENT_ADMIN,Incident Admin,Privileged,High,2025-12-17
+gharris,AWS IAM,SECURITY_AUDIT,Security Audit,ReadOnly,Medium,2024-04-27
+gharris,Workday,PAYROLL_VIEWER,Payroll Viewer,ReadOnly,Medium,2025-10-24
+gharris,Oracle ERP,ERP_ADMIN,ERP Administrator,Privileged,Critical,2024-03-09
+eosei,SAP,AP_APPROVER,Accounts Payable Approver,Business,High,2025-05-30
+eosei,SAP,FIN_REPORT_VIEWER,Financial Report Viewer,ReadOnly,Low,2026-03-18
+eosei,Workday,EMPLOYEE_VIEWER,Employee Viewer,ReadOnly,Low,2024-05-20
+fwilson,ServiceNow,INCIDENT_ADMIN,Incident Admin,Privileged,High,2025-09-22
+fwilson,SAP,FIN_REPORT_VIEWER,Financial Report Viewer,ReadOnly,Low,2024-05-06
+janderson,AWS IAM,IAM_ADMIN,IAM Administrator,Privileged,Critical,2024-04-30
+janderson,Workday,EMPLOYEE_VIEWER,Employee Viewer,ReadOnly,Low,2024-08-07
+janderson,SAP,FIN_REPORT_VIEWER,Financial Report Viewer,ReadOnly,Low,2024-02-02
+pdarko42,Workday,EMPLOYEE_VIEWER,Employee Viewer,ReadOnly,Low,2025-01-30
+rmoore9,Workday,HR_ADMIN,HR Administrator,Privileged,High,2024-11-11
+rmoore9,Salesforce,SALES_USER,Sales User,Business,Low,2026-04-01
+rmoore9,ServiceNow,CHANGE_REQUESTER,Change Requester,Business,Medium,2025-12-26
+ajackson,Workday,EMPLOYEE_VIEWER,Employee Viewer,ReadOnly,Low,2023-12-17
+ajackson,ServiceNow,INCIDENT_ADMIN,Incident Admin,Privileged,High,2025-11-08
+lappiah,AWS IAM,EC2_POWER_USER,EC2 Power User,Privileged,High,2024-06-16
+lappiah,Workday,EMPLOYEE_VIEWER,Employee Viewer,ReadOnly,Low,2024-01-07
+sthomas,ServiceNow,CHANGE_REQUESTER,Change Requester,Business,Medium,2025-01-22
+sthomas,Salesforce,SALES_USER,Sales User,Business,Low,2025-05-18
+sthomas,AWS IAM,IAM_ADMIN,IAM Administrator,Privileged,Critical,2025-07-02
+mwhite,AWS IAM,SECURITY_AUDIT,Security Audit,ReadOnly,Medium,2024-09-07
+mwhite,Oracle ERP,ERP_ADMIN,ERP Administrator,Privileged,Critical,2025-03-21
+dwilliams,SAP,PAYROLL_ADMIN,Payroll Administrator,Privileged,High,2025-05-16
+dwilliams,AWS IAM,SECURITY_AUDIT,Security Audit,ReadOnly,Medium,2025-09-08
+gfrimpong49,Workday,PAYROLL_VIEWER,Payroll Viewer,ReadOnly,Medium,2025-07-01
+gfrimpong49,Oracle ERP,ERP_ADMIN,ERP Administrator,Privileged,Critical,2025-07-05
+howusu,SAP,FIN_REPORT_VIEWER,Financial Report Viewer,ReadOnly,Low,2025-09-30
+howusu,SAP,AP_APPROVER,Accounts Payable Approver,Business,High,2024-04-06
+howusu,ServiceNow,CHANGE_REQUESTER,Change Requester,Business,Medium,2024-09-22
+svc_backup,Salesforce,SALES_USER,Sales User,Business,Low,2024-06-21
+svc_deploy,ServiceNow,CHANGE_REQUESTER,Change Requester,Business,Medium,2024-01-23
+svc_deploy,SAP,AP_CREATOR,Accounts Payable Creator,Business,Medium,2025-06-16
+svc_deploy,AWS IAM,SECURITY_AUDIT,Security Audit,ReadOnly,Medium,2024-05-05
+vendor_kpmg,Workday,EMPLOYEE_VIEWER,Employee Viewer,ReadOnly,Low,2024-08-26
+temp_audit,ServiceNow,INCIDENT_ADMIN,Incident Admin,Privileged,High,2024-10-17
+temp_audit,Workday,PAYROLL_VIEWER,Payroll Viewer,ReadOnly,Medium,2024-03-11
+old_admin,Workday,PAYROLL_VIEWER,Payroll Viewer,ReadOnly,Medium,2024-04-24
+old_admin,ServiceNow,CHANGE_REQUESTER,Change Requester,Business,Medium,2025-06-04
+old_admin,Workday,HR_ADMIN,HR Administrator,Privileged,High,2025-12-11
+contractor01,AWS IAM,READ_ONLY,Read Only Access,ReadOnly,Low,2025-12-12
+contractor01,Salesforce,SALES_ADMIN,Salesforce Admin,Privileged,High,2025-09-29
+contractor01,AWS IAM,SECURITY_AUDIT,Security Audit,ReadOnly,Medium,2025-07-04
+svc_batch,Oracle ERP,ERP_ADMIN,ERP Administrator,Privileged,Critical,2024-08-10
+svc_batch,Workday,HR_ADMIN,HR Administrator,Privileged,High,2023-12-13
+svc_batch,AWS IAM,READ_ONLY,Read Only Access,ReadOnly,Low,2025-08-24
+legacy_pay,AWS IAM,READ_ONLY,Read Only Access,ReadOnly,Low,2026-03-30
+legacy_pay,Salesforce,SALES_ADMIN,Salesforce Admin,Privileged,High,2025-07-07
+test.user,SAP,FIN_REPORT_VIEWER,Financial Report Viewer,ReadOnly,Low,2025-06-18
+admin.sap,AWS IAM,SECURITY_AUDIT,Security Audit,ReadOnly,Medium,2025-12-29
+admin.sap,SAP,FIN_REPORT_VIEWER,Financial Report Viewer,ReadOnly,Low,2025-06-26
+admin.sap,ServiceNow,CHANGE_REQUESTER,Change Requester,Business,Medium,2025-01-17
+nthomas,SAP,AP_CREATOR,Accounts Payable Creator,Business,Medium,2025-11-10
+nthomas,SAP,AP_APPROVER,Accounts Payable Approver,Business,High,2026-01-29
+ewhite,AWS IAM,IAM_ADMIN,IAM Administrator,Privileged,Critical,2026-04-07
+ewhite,AWS IAM,BILLING_ADMIN,Billing Administrator,Privileged,High,2025-12-25
+ajohnson21,ServiceNow,CHANGE_REQUESTER,Change Requester,Business,Medium,2025-01-07
+ajohnson21,ServiceNow,CHANGE_APPROVER,Change Approver,Business,High,2025-02-16
+emoore7,SAP,PAYROLL_ADMIN,Payroll Administrator,Privileged,High,2025-09-01
+mfrimpong,Oracle ERP,ERP_ADMIN,ERP Administrator,Privileged,Critical,2026-03-06
+old_admin,AWS IAM,IAM_ADMIN,IAM Administrator,Privileged,Critical,2025-03-09
+old_admin,AWS IAM,BILLING_ADMIN,Billing Administrator,Privileged,High,2026-03-31

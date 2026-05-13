@@ -1,0 +1,11 @@
+rule_id,system_name,conflicting_role_1,conflicting_role_2,conflict_description,severity
+SOD-001,SAP,AP_CREATOR,AP_APPROVER,User can both create and approve supplier payments,Critical
+SOD-002,SAP,AP_CREATOR,VENDOR_MASTER_ADMIN,User can create payables and modify vendor master data,High
+SOD-003,AWS IAM,IAM_ADMIN,BILLING_ADMIN,User can administer cloud identities and manage billing,High
+SOD-004,ServiceNow,CHANGE_REQUESTER,CHANGE_APPROVER,User can request and approve own changes,Critical
+SOD-005,Oracle ERP,GL_POSTER,GL_REVIEWER,User can post and review general ledger entries,High
+SOD-006,Oracle ERP,ERP_ADMIN,GL_POSTER,ERP admin can also post financial entries,Critical
+SOD-007,Workday,HR_ADMIN,PAYROLL_VIEWER,User can administer HR records and view payroll,Medium
+SOD-008,Salesforce,SALES_ADMIN,SALES_USER,Admin also operates as standard sales user,Low
+SOD-009,SAP,PAYROLL_ADMIN,FIN_REPORT_VIEWER,Payroll admin can access financial reports,Medium
+SOD-010,AWS IAM,IAM_ADMIN,EC2_POWER_USER,Identity admin also has infrastructure power-user rights,High
