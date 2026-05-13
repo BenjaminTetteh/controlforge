@@ -159,3 +159,40 @@ def generate_mfa_gap_findings(
         findings.append(finding)
 
     return findings
+
+
+def generate_sod_findings(
+    findings_df: pd.DataFrame
+) -> list:
+
+    findings = []
+
+    for index, row in findings_df.iterrows():
+
+        finding = {
+            "finding_id": f"FND-SOD-{index + 1:03}",
+            "severity": row["severity"],
+            "control_name": "Segregation of Duties Review",
+            "affected_user": row["account_name"],
+            "full_name": "N/A",
+            "issue_description": (
+                f"User has conflicting roles: "
+                f"{row['role_1']} and {row['role_2']}."
+            ),
+            "risk_statement": (
+                row["conflict_description"]
+            ),
+            "recommendation": (
+                "Review role assignments and remove conflicting "
+                "access where inappropriate."
+            ),
+            "source_system": row["system_name"],
+            "termination_date": "",
+            "detected_at": datetime.now().strftime(
+                "%Y-%m-%d %H:%M:%S"
+            )
+        }
+
+        findings.append(finding)
+
+    return findings
