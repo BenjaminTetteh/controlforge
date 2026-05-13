@@ -34,7 +34,7 @@ data/raw/hr_records.csv
 data/raw/ad_accounts.csv
 data/raw/role_assignments.csv
 data/raw/sod_rules.csv
-
+```
 
 ## Run Locally
 python3 -m venv venv
@@ -43,35 +43,25 @@ pip install -r requirements.txt
 python main.py
 
 
-## Example Output
-ControlForge Audit Engine
-=========================
-
-Total findings generated: 59
-
-Audit Findings Summary
-======================
-
-
 ## Tech Stack
 
-Python
-pandas
-tabulate
-CSV/JSON evidence processing
-Local-first architecture
+- Python
+- pandas
+- tabulate
+- CSV/JSON evidence processing
+- Local-first architecture
 
 
 ## Roadmap
 
-Segregation of Duties conflict detection
-audit summary reports
-one-click evidence package generation
-AWS IAM and cloud configuration scanning
-policy-as-code control mapping
-compliance framework mapping
-AI-assisted audit finding narratives
-dashboard interface
+- Segregation of Duties conflict detection
+- audit summary reports
+- one-click evidence package generation
+- AWS IAM and cloud configuration scanning
+- policy-as-code control mapping
+- compliance framework mapping
+- AI-assisted audit finding narratives
+- dashboard interface
 
 
 ## Long-Term Vision
