@@ -1,0 +1,9 @@
+{
+  "account_name": "account_name",
+  "system_name": "system_name",
+  "role_code": "role_code",
+  "role_name": "role_name",
+  "role_type": "role_type",
+  "risk_level": "risk_level",
+  "assigned_date": "assigned_date"
+}

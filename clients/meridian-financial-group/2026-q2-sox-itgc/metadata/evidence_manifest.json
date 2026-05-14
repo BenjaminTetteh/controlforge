@@ -1,0 +1,30 @@
+[
+    {
+        "file_name": "hr_records.csv",
+        "sha256": "d4143ca1b61a22caf0afbb4ad94620702aff1f1bc03c0575a45ef8d35a93036f",
+        "file_size_bytes": 5794,
+        "row_count": 50,
+        "ingested_at": "2026-05-14 09:18:54"
+    },
+    {
+        "file_name": "ad_accounts.csv",
+        "sha256": "fa0d2547df599778ff68f89d3d6259ca2420adcd77b67e9d6a21e27ff74e072a",
+        "file_size_bytes": 6850,
+        "row_count": 65,
+        "ingested_at": "2026-05-14 09:18:54"
+    },
+    {
+        "file_name": "role_assignments.csv",
+        "sha256": "ec9655cd81bf1b8c47f535221db9d3557afab266bb90fe5f6da9d02731b9e256",
+        "file_size_bytes": 11029,
+        "row_count": 142,
+        "ingested_at": "2026-05-14 09:18:54"
+    },
+    {
+        "file_name": "sod_rules.csv",
+        "sha256": "54148f88b7d324b5ba5c3ce0867812b57782a317d5120fdf14056fbd9bed549f",
+        "file_size_bytes": 1065,
+        "row_count": 10,
+        "ingested_at": "2026-05-14 09:18:54"
+    }
+]

@@ -1,0 +1,12 @@
+{
+  "employee_id": "employee_id",
+  "account_name": "account_name",
+  "full_name": "full_name",
+  "email": "email",
+  "job_title": "job_title",
+  "department": "department",
+  "manager": "manager",
+  "employment_status": "employment_status",
+  "hire_date": "hire_date",
+  "termination_date": "termination_date"
+}

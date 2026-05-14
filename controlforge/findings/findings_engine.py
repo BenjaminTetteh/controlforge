@@ -1,9 +1,14 @@
+from controlforge.findings.metadata import (
+    enrich_finding_with_control_metadata
+)
+
 from datetime import datetime
 import pandas as pd
 
 
 def generate_terminated_user_findings(
-    findings_df: pd.DataFrame
+    findings_df: pd.DataFrame,
+    engagement_context: dict
 ) -> list:
 
     findings = []
@@ -33,13 +38,20 @@ def generate_terminated_user_findings(
             "detected_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
 
+        finding = enrich_finding_with_control_metadata(
+            finding=finding,
+            control_key="terminated_user_access",
+            engagement_context=engagement_context
+        )
+
         findings.append(finding)
 
     return findings
 
 
 def generate_orphaned_account_findings(
-    findings_df: pd.DataFrame
+    findings_df: pd.DataFrame,
+    engagement_context: dict
 ) -> list:
 
     findings = []
@@ -69,13 +81,20 @@ def generate_orphaned_account_findings(
             "detected_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
 
+        finding = enrich_finding_with_control_metadata(
+            finding=finding,
+            control_key="orphaned_accounts",
+            engagement_context=engagement_context
+        )
+
         findings.append(finding)
 
     return findings
 
 
 def generate_dormant_account_findings(
-    findings_df: pd.DataFrame
+    findings_df: pd.DataFrame,
+    engagement_context: dict
 ) -> list:
 
     findings = []
@@ -117,13 +136,20 @@ def generate_dormant_account_findings(
             "detected_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
 
+        finding = enrich_finding_with_control_metadata(
+            finding=finding,
+            control_key="dormant_accounts",
+            engagement_context=engagement_context
+        )
+
         findings.append(finding)
 
     return findings
 
 
 def generate_mfa_gap_findings(
-    findings_df: pd.DataFrame
+    findings_df: pd.DataFrame,
+    engagement_context: dict
 ) -> list:
 
     findings = []
@@ -156,13 +182,20 @@ def generate_mfa_gap_findings(
             "detected_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
 
+        finding = enrich_finding_with_control_metadata(
+            finding=finding,
+            control_key="mfa_compliance",
+            engagement_context=engagement_context
+        )
+
         findings.append(finding)
 
     return findings
 
 
 def generate_sod_findings(
-    findings_df: pd.DataFrame
+    findings_df: pd.DataFrame,
+    engagement_context: dict
 ) -> list:
 
     findings = []
@@ -192,6 +225,12 @@ def generate_sod_findings(
                 "%Y-%m-%d %H:%M:%S"
             )
         }
+
+        finding = enrich_finding_with_control_metadata(
+            finding=finding,
+            control_key="sod_conflicts",
+            engagement_context=engagement_context
+        )
 
         findings.append(finding)
 

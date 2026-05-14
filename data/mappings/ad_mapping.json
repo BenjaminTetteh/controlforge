@@ -1,0 +1,10 @@
+{
+  "account_name": "account_name",
+  "email": "email",
+  "account_status": "account_status",
+  "last_login_date": "last_login_date",
+  "mfa_enabled": "mfa_enabled",
+  "password_last_changed": "password_last_changed",
+  "is_privileged": "is_privileged",
+  "ad_groups": "ad_groups"
+}

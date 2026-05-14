@@ -1,0 +1,8 @@
+{
+  "rule_id": "rule_id",
+  "system_name": "system_name",
+  "conflicting_role_1": "conflicting_role_1",
+  "conflicting_role_2": "conflicting_role_2",
+  "conflict_description": "conflict_description",
+  "severity": "severity"
+}

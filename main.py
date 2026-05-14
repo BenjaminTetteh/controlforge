@@ -4,6 +4,10 @@ import pandas as pd
 from controlforge.context.engagement_context import EngagementContext
 from controlforge.reports.engagement_report import display_engagement_context
 
+from controlforge.workspace.workspace_manager import (
+    WorkspaceManager
+)
+
 from controlforge.ingestion.loaders import load_all_evidence
 from controlforge.ingestion.evidence_integrity import (
     generate_evidence_metadata
@@ -33,10 +37,17 @@ from controlforge.findings.findings_engine import (
     generate_sod_findings
 )
 
-from controlforge.reports.exporter import export_findings
+from controlforge.reports.exporter import (
+    export_findings,
+    export_audit_summary
+)
 from controlforge.reports.audit_summary import AuditSummary
 from controlforge.reports.evidence_manifest import (
     export_evidence_manifest
+)
+
+from controlforge.history.history_manager import (
+    AuditHistoryManager
 )
 
 
@@ -129,6 +140,7 @@ def display_findings(findings: list):
 
 
 def main():
+
     audit_summary = AuditSummary()
 
     engagement = EngagementContext(
@@ -140,6 +152,19 @@ def main():
     )
 
     engagement_context = engagement.to_dict()
+
+    workspace = WorkspaceManager(
+        client_name=engagement_context["client_name"],
+        engagement_id=engagement_context["engagement_id"]
+    )
+
+    workspace.create_workspace()
+
+    paths = workspace.get_paths()
+
+    history_manager = AuditHistoryManager(
+        paths["history"]
+    )
 
     print("\nControlForge Audit Engine")
     print("=========================")
@@ -153,7 +178,11 @@ def main():
         evidence_metadata.append(metadata)
 
     display_evidence_metadata(evidence_metadata)
-    export_evidence_manifest(evidence_metadata)
+
+    export_evidence_manifest(
+        evidence_metadata,
+        paths["metadata"]
+    )
 
     evidence = load_all_evidence()
 
@@ -163,19 +192,43 @@ def main():
     sod_rules_df = evidence["sod_rules"]
 
     terminated_accounts = detect_terminated_active_accounts(hr_df, ad_df)
-    terminated_findings = generate_terminated_user_findings(terminated_accounts)
+    terminated_findings = generate_terminated_user_findings(
+        terminated_accounts,
+        engagement_context
+    )
 
     orphaned_accounts = detect_orphaned_accounts(hr_df, ad_df)
-    orphaned_findings = generate_orphaned_account_findings(orphaned_accounts)
+    orphaned_findings = generate_orphaned_account_findings(
+        orphaned_accounts,
+        engagement_context
+    )
 
-    dormant_accounts = detect_dormant_accounts(ad_df, threshold_days=90)
-    dormant_findings = generate_dormant_account_findings(dormant_accounts)
+    dormant_accounts = detect_dormant_accounts(
+        ad_df,
+        threshold_days=90
+    )
+
+    dormant_findings = generate_dormant_account_findings(
+        dormant_accounts,
+        engagement_context
+    )
 
     mfa_gaps = detect_mfa_gaps(ad_df)
-    mfa_findings = generate_mfa_gap_findings(mfa_gaps)
 
-    sod_conflicts = detect_sod_conflicts(role_df, sod_rules_df)
-    sod_findings = generate_sod_findings(sod_conflicts)
+    mfa_findings = generate_mfa_gap_findings(
+        mfa_gaps,
+        engagement_context
+    )
+
+    sod_conflicts = detect_sod_conflicts(
+        role_df,
+        sod_rules_df
+    )
+
+    sod_findings = generate_sod_findings(
+        sod_conflicts,
+        engagement_context
+    )
 
     findings = (
         terminated_findings
@@ -192,10 +245,31 @@ def main():
         controls_executed=controls_executed
     )
 
+    summary.update({
+        "client_name": engagement_context["client_name"],
+        "engagement_id": engagement_context["engagement_id"],
+        "framework": engagement_context["framework"],
+        "audit_period": engagement_context["audit_period"],
+        "auditor_name": engagement_context["auditor_name"]
+    })
+
     display_audit_summary(summary)
+
+    export_audit_summary(
+        summary,
+        paths["reports"]
+    )
+
+    history_manager.append_audit_run(
+        summary
+    )
+
     display_findings(findings)
 
-    export_findings(findings)
+    export_findings(
+        findings,
+        paths["findings"]
+    )
 
 
 if __name__ == "__main__":

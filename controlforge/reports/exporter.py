@@ -1,16 +1,10 @@
-from pathlib import Path
 import json
 import pandas as pd
 
 
-OUTPUT_DIR = Path("outputs")
-
-
-def export_findings(findings: list) -> None:
-    OUTPUT_DIR.mkdir(exist_ok=True)
-
-    json_path = OUTPUT_DIR / "findings.json"
-    csv_path = OUTPUT_DIR / "findings.csv"
+def export_findings(findings: list, output_path) -> None:
+    json_path = output_path / "findings.json"
+    csv_path = output_path / "findings.csv"
 
     with open(json_path, "w") as json_file:
         json.dump(findings, json_file, indent=4)
@@ -18,6 +12,15 @@ def export_findings(findings: list) -> None:
     findings_df = pd.DataFrame(findings)
     findings_df.to_csv(csv_path, index=False)
 
-    print(f"\nFindings exported successfully:")
+    print("\nFindings exported successfully:")
     print(f"- {json_path}")
     print(f"- {csv_path}")
+
+def export_audit_summary(summary: dict, output_path) -> None:
+    summary_path = output_path / "audit_summary.json"
+
+    with open(summary_path, "w") as json_file:
+        json.dump(summary, json_file, indent=4)
+
+    print("\nAudit summary exported:")
+    print(f"- {summary_path}")
