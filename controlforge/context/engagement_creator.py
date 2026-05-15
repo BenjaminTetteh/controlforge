@@ -42,7 +42,8 @@ def create_engagement(
         )
 
     create_evidence_templates(
-        engagement_path / "evidence"
+        framework=framework,
+        evidence_path=engagement_path / "evidence"
     )
 
     engagement_config = {

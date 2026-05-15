@@ -153,6 +153,21 @@ def build_executive_report_sections(
         "framework"
     )
 
+    framework_metadata = engagement_context.get(
+        "framework_metadata",
+        {}
+    )
+
+    framework_name = framework_metadata.get(
+        "name",
+        framework
+    )
+
+    framework_description = framework_metadata.get(
+        "description",
+        ""
+    )
+
     audit_period = engagement_context.get(
         "audit_period"
     )
@@ -206,7 +221,7 @@ Client: {client_name}
 
 Engagement ID: {engagement_id}
 
-Framework: {framework}
+Framework: {framework_name} ({framework})
 
 Audit Period: {audit_period}
 
@@ -232,7 +247,8 @@ Generated: {generated_at}
     add_section(
         sections,
         "Scope and Objectives",
-        """
+        f"""
+    This engagement was performed in alignment with {framework_name}. {framework_description}    
     The review assessed key IT general controls relating to:
 
     - User access management

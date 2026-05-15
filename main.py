@@ -113,6 +113,14 @@ from controlforge.context.engagement_creator import (
     create_engagement
 )
 
+from controlforge.frameworks.framework_loader import (
+    get_framework_metadata
+)
+
+from controlforge.frameworks.framework_control_loader import (
+    get_framework_controls
+)
+
 
 # Define the evidence files to be loaded
 EVIDENCE_FILES = [
@@ -290,6 +298,10 @@ def build_engagement_context(
 
     engagement_context = load_engagement_context(
         engagement_path
+    )
+
+    engagement_context["framework_metadata"] = get_framework_metadata(
+        engagement_context["framework"]
     )
 
     engagement_context["execution_timestamp"] = (
@@ -499,6 +511,11 @@ def parse_args():
         help="List available client engagements"
     )
 
+    subparsers.add_parser(
+        "framework-controls",
+        help="Display controls mapped to the selected framework"
+    )
+
     executive_report_parser = subparsers.add_parser(
         "executive-report",
         help="Generate executive governance summary report"
@@ -689,6 +706,42 @@ def display_engagement_inventory(
     )
 
 
+def display_framework_controls(
+    framework: str,
+    controls: list
+):
+
+    if not controls:
+        print(f"\nNo controls mapped for {framework}.")
+        return
+
+    rows = []
+
+    for control in controls:
+        rows.append([
+            control["control_id"],
+            control["name"],
+            control["domain"],
+            control["severity"]
+        ])
+
+    print(f"\nControls mapped to {framework}")
+    print("==============================")
+
+    print(
+        tabulate(
+            rows,
+            headers=[
+                "Control ID",
+                "Control Name",
+                "Domain",
+                "Severity"
+            ],
+            tablefmt="grid"
+        )
+    )
+
+
 def main():
     args = parse_args()
     if args.command == "create-engagement":
@@ -723,6 +776,19 @@ def main():
     execution_logger = ExecutionLogger(
         paths["logs"]
     )
+
+    if args.command == "framework-controls":
+
+        controls = get_framework_controls(
+            engagement_context["framework"]
+        )
+
+        display_framework_controls(
+            engagement_context["framework"],
+            controls
+        )
+
+        return
 
     if args.command == "list-engagements":
 

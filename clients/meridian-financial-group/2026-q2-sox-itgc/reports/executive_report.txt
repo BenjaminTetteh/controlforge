@@ -6,13 +6,13 @@ Client: Meridian Financial Group
 
 Engagement ID: 2026-Q2-SOX-ITGC
 
-Framework: SOX
+Framework: Sarbanes-Oxley ITGC (SOX)
 
 Audit Period: Q2 2026
 
 Prepared By: Benjamin Tetteh
 
-Generated: 2026-05-15 14:05:29
+Generated: 2026-05-15 21:53:28
 
 
 Executive Overview
@@ -31,6 +31,7 @@ Scope and Objectives
 --------------------
 
 
+    This engagement was performed in alignment with Sarbanes-Oxley ITGC. IT General Controls supporting financial reporting integrity.    
     The review assessed key IT general controls relating to:
 
     - User access management
@@ -82,7 +83,7 @@ Trend Analysis
 --------------
 
 
-    - Audit Runs Reviewed: 16
+    - Audit Runs Reviewed: 18
     - Findings Change Since Previous Audit: 0
     - Critical Findings Change: 0
 
