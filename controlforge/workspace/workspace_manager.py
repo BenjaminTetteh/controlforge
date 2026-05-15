@@ -24,6 +24,7 @@ class WorkspaceManager:
         self.reports_path = self.base_path / "reports"
         self.evidence_path = self.base_path / "evidence"
         self.history_path = self.base_path / "history"
+        self.logs_path = self.base_path / "logs"
 
     def slugify(self, value: str) -> str:
         value = value.lower().strip()
@@ -36,6 +37,7 @@ class WorkspaceManager:
         self.reports_path.mkdir(parents=True, exist_ok=True)
         self.evidence_path.mkdir(parents=True, exist_ok=True)
         self.history_path.mkdir(parents=True, exist_ok=True)
+        self.logs_path.mkdir(parents=True, exist_ok=True)
 
     def get_paths(self):
         return {
@@ -44,5 +46,6 @@ class WorkspaceManager:
             "metadata": self.metadata_path,
             "reports": self.reports_path,
             "evidence": self.evidence_path,
-            "history": self.history_path
+            "history": self.history_path,
+            "logs": self.logs_path
         }
