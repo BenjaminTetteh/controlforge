@@ -812,7 +812,8 @@ def main():
     if args.command == "control-coverage":
 
         coverage = analyze_control_coverage(
-            engagement_context["framework"]
+            framework_code=engagement_context["framework"],
+            engagement_path=paths["base"]
         )
 
         display_control_coverage(

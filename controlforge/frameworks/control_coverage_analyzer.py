@@ -2,16 +2,14 @@ from controlforge.frameworks.framework_control_loader import (
     get_framework_controls
 )
 
-
-IMPLEMENTED_CONTROLS = [
-    "MFA_ENFORCEMENT",
-    "TERMINATED_USER_ACCESS",
-    "SOD_CONFLICTS"
-]
+from controlforge.controls.implemented_control_loader import (
+    load_implemented_controls
+)
 
 
 def analyze_control_coverage(
-    framework_code: str
+    framework_code: str,
+    engagement_path
 ):
 
     mapped_controls = get_framework_controls(
@@ -24,7 +22,9 @@ def analyze_control_coverage(
     }
 
     implemented_ids = set(
-        IMPLEMENTED_CONTROLS
+        load_implemented_controls(
+            engagement_path
+        )
     )
 
     implemented_controls = (
