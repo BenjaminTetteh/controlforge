@@ -125,6 +125,11 @@ from controlforge.frameworks.control_coverage_analyzer import (
     analyze_control_coverage
 )
 
+from controlforge.controls.implemented_control_manager import (
+    enable_control,
+    disable_control
+)
+
 
 # Define the evidence files to be loaded
 EVIDENCE_FILES = [
@@ -566,6 +571,18 @@ def parse_args():
     create_parser.add_argument("--audit-period", required=True)
     create_parser.add_argument("--auditor-name", required=True)
 
+    enable_control_parser = subparsers.add_parser(
+        "enable-control",
+        help="Mark a control as implemented for the selected engagement"
+    )
+    enable_control_parser.add_argument("control_id")
+
+    disable_control_parser = subparsers.add_parser(
+        "disable-control",
+        help="Mark a control as not implemented for the selected engagement"
+    )
+    disable_control_parser.add_argument("control_id")
+
     timeline_parser.add_argument("finding_id")
 
     return parser.parse_args()
@@ -808,6 +825,29 @@ def main():
     execution_logger = ExecutionLogger(
         paths["logs"]
     )
+
+    if args.command == "enable-control":
+
+        enable_control(
+            engagement_path=paths["base"],
+            control_id=args.control_id
+        )
+
+        print(f"\nControl enabled: {args.control_id}")
+
+        return
+
+
+    if args.command == "disable-control":
+
+        disable_control(
+            engagement_path=paths["base"],
+            control_id=args.control_id
+        )
+
+        print(f"\nControl disabled: {args.control_id}")
+
+        return
 
     if args.command == "control-coverage":
 
