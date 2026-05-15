@@ -46,7 +46,8 @@ from controlforge.logging.execution_logger import ExecutionLogger
 
 from controlforge.reports.exporter import (
     export_findings,
-    export_audit_summary
+    export_audit_summary,
+    export_text_report
 )
 from controlforge.reports.audit_summary import AuditSummary
 from controlforge.reports.evidence_manifest import export_evidence_manifest
@@ -73,6 +74,18 @@ from controlforge.history.finding_timeline import (
 
 from controlforge.analytics.remediation_metrics import (
     calculate_remediation_metrics
+)
+
+from controlforge.reports.executive_report import (
+    generate_executive_summary
+)
+
+from controlforge.analytics.remediation_metrics import (
+    calculate_remediation_metrics
+)
+
+from controlforge.analytics.trends import (
+    calculate_trends
 )
 
 
@@ -447,6 +460,11 @@ def parse_args():
         help="Display remediation lifecycle metrics"
     )
 
+    subparsers.add_parser(
+        "executive-report",
+        help="Generate executive governance summary report"
+    )
+
     timeline_parser = subparsers.add_parser(
         "finding-history",
         help="Display workflow history for a finding"
@@ -634,6 +652,44 @@ def main():
 
         return
     
+    if args.command == "executive-report":
+
+        findings = load_saved_findings(
+            paths["findings"]
+        )
+
+        metrics = calculate_finding_metrics(
+            findings
+        )
+
+        remediation_metrics = calculate_remediation_metrics(
+            findings
+        )
+
+        audit_history = history_manager.load_history()
+
+        trends = calculate_trends(
+            audit_history
+        )
+
+        report = generate_executive_summary(
+            engagement_context=engagement_context,
+            findings=findings,
+            metrics=metrics,
+            remediation_metrics=remediation_metrics,
+            trends=trends
+        )
+
+        print(report)
+
+        export_text_report(
+            report_text=report,
+            output_path=paths["reports"],
+            filename="executive_report.txt"
+        )
+
+        return
+
     if args.command == "finding-history":
 
         logs = execution_logger.load_logs()

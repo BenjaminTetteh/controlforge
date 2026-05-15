@@ -24,3 +24,17 @@ def export_audit_summary(summary: dict, output_path) -> None:
 
     print("\nAudit summary exported:")
     print(f"- {summary_path}")
+
+def export_text_report(
+    report_text: str,
+    output_path,
+    filename: str
+):
+
+    report_file = output_path / filename
+
+    with open(report_file, "w") as file:
+        file.write(report_text)
+
+    print("\nReport exported:")
+    print(f"- {report_file}")

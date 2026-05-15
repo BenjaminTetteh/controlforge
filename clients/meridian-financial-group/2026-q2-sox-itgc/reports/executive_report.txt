@@ -1,0 +1,114 @@
+
+
+
+EXECUTIVE GOVERNANCE SUMMARY
+============================
+
+Client:
+Meridian Financial Group
+
+Engagement ID:
+2026-Q2-SOX-ITGC
+
+Framework:
+SOX
+
+Audit Period:
+Q2 2026
+
+Prepared By:
+Benjamin Tetteh
+
+Generated:
+2026-05-15 12:18:05
+
+
+1. Executive Overview
+---------------------
+
+An audit assessment of the IT control environment was performed to evaluate the effectiveness of governance, access management, and operational control activities supporting the organization’s control framework.
+
+Overall control environment posture was assessed as:
+High
+
+Control deficiencies were identified requiring management attention and remediation oversight.
+
+
+2. Scope and Objectives
+-----------------------
+
+The review assessed key IT general controls relating to:
+
+- User access management
+- Privileged access governance
+- Segregation of duties
+- Dormant account monitoring
+- Identity lifecycle management
+
+Audit procedures included automated control testing, evidence reconciliation, and governance analytics.
+
+
+3. Overall Control Environment Assessment
+-----------------------------------------
+
+The audit identified recurring governance weaknesses primarily relating to Identity and access management, Segregation of duties, Privileged access.
+
+Risk exposure may result in:
+- Unauthorized access
+- Segregation of duties conflicts
+- Delayed remediation response
+- Elevated operational and compliance risk
+
+Management should strengthen governance oversight and remediation monitoring processes.
+
+
+4. Significant Findings
+-----------------------
+
+- MFA Compliance Review (Critical Risk): 21 related issue(s) identified. Representative observation: Active account does not have multi-factor authentication enabled.
+- Segregation of Duties Review (Critical Risk): 8 related issue(s) identified. Representative observation: User has conflicting roles: AP_CREATOR and AP_APPROVER.
+- Terminated User Access Review (Critical Risk): 3 related issue(s) identified. Representative observation: Terminated employee still has an active Active Directory account.
+- Orphaned Account Review (High Risk): 15 related issue(s) identified. Representative observation: Active Directory account exists without a matching HR employee record.
+- Dormant Privileged Account Review (High Risk): 2 related issue(s) identified. Representative observation: Active account has not logged in for 177 days.
+
+
+5. Remediation Status
+---------------------
+
+- Total Findings: 67
+- Open Findings: 66
+- Closed Findings: 1
+- Overdue Findings: 0
+
+Remediation efforts are underway for identified control deficiencies.
+
+
+6. Trend Analysis
+-----------------
+
+- Audit Runs Reviewed: 16
+- Findings Change Since Previous Audit: 0
+- Critical Findings Change: 0
+
+Trend analysis indicates recurring governance issues requiring continued management focus.
+
+
+7. Management Recommendations
+-----------------------------
+
+Management should prioritize:
+
+- Strengthening access governance controls
+- Enhancing remediation tracking processes
+- Improving segregation of duties oversight
+- Increasing governance monitoring activities
+- Accelerating remediation of critical findings
+
+
+8. Conclusion
+-------------
+
+The audit identified governance and control weaknesses requiring continued remediation oversight and management attention.
+
+Continued improvement of governance processes, access controls, and operational monitoring activities will strengthen the overall control environment.
+
