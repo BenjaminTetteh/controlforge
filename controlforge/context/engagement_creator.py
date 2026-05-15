@@ -1,6 +1,10 @@
 import json
 from pathlib import Path
 
+from controlforge.context.engagement_templates import (
+    create_evidence_templates
+)
+
 
 def create_engagement(
     client_slug: str,
@@ -36,6 +40,10 @@ def create_engagement(
         (engagement_path / folder).mkdir(
             exist_ok=True
         )
+
+    create_evidence_templates(
+        engagement_path / "evidence"
+    )
 
     engagement_config = {
         "client_name": client_name,
