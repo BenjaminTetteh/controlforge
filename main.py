@@ -779,7 +779,9 @@ def display_control_coverage(
         ["Framework", coverage["framework"]],
         ["Mapped Controls", coverage["mapped_controls"]],
         ["Implemented Controls", coverage["implemented_controls"]],
-        ["Coverage", f"{coverage['coverage_percent']}%"]
+        ["Coverage", f"{coverage['coverage_percent']}%"],
+        ["Maturity Level", coverage["maturity_level"]],
+        ["Governance Posture", coverage["governance_posture"]]
     ]
 
     print(
