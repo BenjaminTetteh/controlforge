@@ -121,6 +121,10 @@ from controlforge.frameworks.framework_control_loader import (
     get_framework_controls
 )
 
+from controlforge.frameworks.control_coverage_analyzer import (
+    analyze_control_coverage
+)
+
 
 # Define the evidence files to be loaded
 EVIDENCE_FILES = [
@@ -516,6 +520,11 @@ def parse_args():
         help="Display controls mapped to the selected framework"
     )
 
+    subparsers.add_parser(
+        "control-coverage",
+        help="Display framework control coverage analytics"
+    )
+
     executive_report_parser = subparsers.add_parser(
         "executive-report",
         help="Generate executive governance summary report"
@@ -742,6 +751,29 @@ def display_framework_controls(
     )
 
 
+def display_control_coverage(
+    coverage: dict
+):
+
+    print("\nControl Coverage Analytics")
+    print("==========================")
+
+    rows = [
+        ["Framework", coverage["framework"]],
+        ["Mapped Controls", coverage["mapped_controls"]],
+        ["Implemented Controls", coverage["implemented_controls"]],
+        ["Coverage", f"{coverage['coverage_percent']}%"]
+    ]
+
+    print(
+        tabulate(
+            rows,
+            headers=["Metric", "Value"],
+            tablefmt="grid"
+        )
+    )
+
+
 def main():
     args = parse_args()
     if args.command == "create-engagement":
@@ -776,6 +808,18 @@ def main():
     execution_logger = ExecutionLogger(
         paths["logs"]
     )
+
+    if args.command == "control-coverage":
+
+        coverage = analyze_control_coverage(
+            engagement_context["framework"]
+        )
+
+        display_control_coverage(
+            coverage
+        )
+
+        return
 
     if args.command == "framework-controls":
 
