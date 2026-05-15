@@ -1,5 +1,8 @@
+charset-normalizer==3.4.7
 numpy==2.4.4
 pandas==3.0.3
+pillow==12.2.0
 python-dateutil==2.9.0.post0
+reportlab==4.5.1
 six==1.17.0
 tabulate==0.10.0

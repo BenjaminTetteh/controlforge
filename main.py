@@ -1,5 +1,7 @@
 import argparse
 
+from datetime import datetime
+
 from tabulate import tabulate
 import pandas as pd
 
@@ -77,7 +79,8 @@ from controlforge.analytics.remediation_metrics import (
 )
 
 from controlforge.reports.executive_report import (
-    generate_executive_summary
+    generate_executive_summary,
+    build_executive_report_sections
 )
 
 from controlforge.analytics.remediation_metrics import (
@@ -86,6 +89,28 @@ from controlforge.analytics.remediation_metrics import (
 
 from controlforge.analytics.trends import (
     calculate_trends
+)
+
+from controlforge.reports.pdf_renderer import (
+    export_sections_to_pdf
+)
+
+from controlforge.reports.chart_renderer import (
+    generate_findings_severity_chart
+)
+
+from pathlib import Path
+
+from controlforge.context.engagement_loader import (
+    load_engagement_context
+)
+
+from controlforge.context.engagement_discovery import (
+    discover_engagements
+)
+
+from controlforge.context.engagement_creator import (
+    create_engagement
 )
 
 
@@ -253,16 +278,25 @@ def display_overdue_findings(overdue_findings: list):
     )
 
 
-def build_engagement_context():
-    engagement = EngagementContext(
-        client_name="Meridian Financial Group",
-        engagement_id="2026-Q2-SOX-ITGC",
-        framework="SOX",
-        audit_period="Q2 2026",
-        auditor_name="Benjamin Tetteh"
+def build_engagement_context(
+    client_slug: str,
+    engagement_slug: str
+):
+    engagement_path = (
+        Path("clients")
+        / client_slug
+        / engagement_slug
     )
 
-    return engagement.to_dict()
+    engagement_context = load_engagement_context(
+        engagement_path
+    )
+
+    engagement_context["execution_timestamp"] = (
+        datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    )
+
+    return engagement_context
 
 
 def build_workspace(engagement_context: dict):
@@ -461,14 +495,50 @@ def parse_args():
     )
 
     subparsers.add_parser(
+        "list-engagements",
+        help="List available client engagements"
+    )
+
+    executive_report_parser = subparsers.add_parser(
         "executive-report",
         help="Generate executive governance summary report"
+    )
+
+    executive_report_parser.add_argument(
+        "--pdf",
+        action="store_true",
+        help="Export executive report as PDF"
     )
 
     timeline_parser = subparsers.add_parser(
         "finding-history",
         help="Display workflow history for a finding"
     )
+
+    parser.add_argument(
+    "--client",
+    default="meridian-financial-group",
+    help="Client slug"
+    )
+
+    parser.add_argument(
+        "--engagement",
+        default="2026-q2-sox-itgc",
+        help="Engagement slug"
+    )
+
+    create_parser = subparsers.add_parser(
+    "create-engagement",
+        help="Create a new client engagement workspace"
+    )
+
+    create_parser.add_argument("--client", required=True)
+    create_parser.add_argument("--engagement", required=True)
+    create_parser.add_argument("--client-name", required=True)
+    create_parser.add_argument("--engagement-id", required=True)
+    create_parser.add_argument("--framework", required=True)
+    create_parser.add_argument("--audit-period", required=True)
+    create_parser.add_argument("--auditor-name", required=True)
 
     timeline_parser.add_argument("finding_id")
 
@@ -588,11 +658,62 @@ def display_remediation_metrics(metrics: dict):
     )
 
 
+def display_engagement_inventory(
+    engagements: list
+):
+
+    if not engagements:
+        print("\nNo engagements found.")
+        return
+
+    rows = []
+
+    for engagement in engagements:
+        rows.append([
+            engagement["client"],
+            engagement["engagement"]
+        ])
+
+    print("\nAvailable Engagements")
+    print("=====================")
+
+    print(
+        tabulate(
+            rows,
+            headers=[
+                "Client",
+                "Engagement"
+            ],
+            tablefmt="grid"
+        )
+    )
+
+
 def main():
     args = parse_args()
+    if args.command == "create-engagement":
+
+        engagement_path = create_engagement(
+            client_slug=args.client,
+            engagement_slug=args.engagement,
+            client_name=args.client_name,
+            engagement_id=args.engagement_id,
+            framework=args.framework,
+            audit_period=args.audit_period,
+            auditor_name=args.auditor_name
+        )
+
+        print("\nEngagement created successfully:")
+        print(f"- {engagement_path}")
+
+        return
+    
     audit_summary = AuditSummary()
 
-    engagement_context = build_engagement_context()
+    engagement_context = build_engagement_context(
+        client_slug=args.client,
+        engagement_slug=args.engagement
+    )
     paths = build_workspace(engagement_context)
 
     history_manager = AuditHistoryManager(
@@ -602,6 +723,16 @@ def main():
     execution_logger = ExecutionLogger(
         paths["logs"]
     )
+
+    if args.command == "list-engagements":
+
+        engagements = discover_engagements()
+
+        display_engagement_inventory(
+            engagements
+        )
+
+        return
 
     if args.command == "metrics":
 
@@ -662,6 +793,11 @@ def main():
             findings
         )
 
+        severity_chart = generate_findings_severity_chart(
+            metrics=metrics,
+            output_path=paths["reports"]
+        )
+
         remediation_metrics = calculate_remediation_metrics(
             findings
         )
@@ -686,6 +822,23 @@ def main():
             report_text=report,
             output_path=paths["reports"],
             filename="executive_report.txt"
+        )
+
+    if getattr(args, "pdf", False):
+
+        sections = build_executive_report_sections(
+            engagement_context=engagement_context,
+            findings=findings,
+            metrics=metrics,
+            remediation_metrics=remediation_metrics,
+            trends=trends
+        )
+
+        export_sections_to_pdf(
+            sections=sections,
+            output_path=paths["reports"],
+            filename="executive_report.pdf",
+            chart_paths=[severity_chart]
         )
 
         return

@@ -199,5 +199,25 @@
         "auditor_name": "Benjamin Tetteh",
         "controls_executed": 5,
         "total_findings": 67
+    },
+    {
+        "execution_timestamp": "2026-05-15 19:23:15",
+        "client_name": "Meridian Financial Group",
+        "engagement_id": "2026-Q2-SOX-ITGC",
+        "framework": "SOX",
+        "audit_period": "Q2 2026",
+        "auditor_name": "Benjamin Tetteh",
+        "controls_executed": 5,
+        "total_findings": 67
+    },
+    {
+        "execution_timestamp": "2026-05-15 20:00:12",
+        "client_name": "Meridian Financial Group",
+        "engagement_id": "2026-Q2-SOX-ITGC",
+        "framework": "SOX",
+        "audit_period": "Q2 2026",
+        "auditor_name": "Benjamin Tetteh",
+        "controls_executed": 5,
+        "total_findings": 67
     }
 ]

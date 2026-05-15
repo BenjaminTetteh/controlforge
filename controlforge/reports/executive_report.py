@@ -5,6 +5,11 @@ from controlforge.reports.risk_themes import (
     determine_dominant_themes
 )
 
+from controlforge.reports.report_builder import (
+    add_section,
+    render_text_report
+)
+
 def determine_risk_posture(
     metrics: dict
 ): 
@@ -132,7 +137,7 @@ def build_governance_narrative(
     )
 
 
-def generate_executive_summary(
+def build_executive_report_sections(
     engagement_context: dict,
     findings: list,
     metrics: dict,
@@ -190,116 +195,146 @@ def generate_executive_summary(
         )
     )
 
-    report = f"""
 
+    sections = []
 
-EXECUTIVE GOVERNANCE SUMMARY
-============================
+    add_section(
+        sections,
+        "Executive Governance Summary",
+        f"""
+Client: {client_name}
 
-Client:
-{client_name}
+Engagement ID: {engagement_id}
 
-Engagement ID:
-{engagement_id}
+Framework: {framework}
 
-Framework:
-{framework}
+Audit Period: {audit_period}
 
-Audit Period:
-{audit_period}
+Prepared By: {auditor_name}
 
-Prepared By:
-{auditor_name}
-
-Generated:
-{generated_at}
-
-
-1. Executive Overview
----------------------
-
-An audit assessment of the IT control environment was performed to evaluate the effectiveness of governance, access management, and operational control activities supporting the organization’s control framework.
-
-Overall control environment posture was assessed as:
-{risk_posture}
-
-Control deficiencies were identified requiring management attention and remediation oversight.
-
-
-2. Scope and Objectives
------------------------
-
-The review assessed key IT general controls relating to:
-
-- User access management
-- Privileged access governance
-- Segregation of duties
-- Dormant account monitoring
-- Identity lifecycle management
-
-Audit procedures included automated control testing, evidence reconciliation, and governance analytics.
-
-
-3. Overall Control Environment Assessment
------------------------------------------
-
-{governance_narrative}
-
-Risk exposure may result in:
-- Unauthorized access
-- Segregation of duties conflicts
-- Delayed remediation response
-- Elevated operational and compliance risk
-
-Management should strengthen governance oversight and remediation monitoring processes.
-
-
-4. Significant Findings
------------------------
-
-{significant_findings}
-
-
-5. Remediation Status
----------------------
-
-- Total Findings: {metrics['total_findings']}
-- Open Findings: {metrics['open_findings']}
-- Closed Findings: {metrics['closed_findings']}
-- Overdue Findings: {remediation_metrics['overdue_findings']}
-
-Remediation efforts are underway for identified control deficiencies.
-
-
-6. Trend Analysis
------------------
-
-- Audit Runs Reviewed: {trends['total_runs']}
-- Findings Change Since Previous Audit: {trends['findings_change']}
-- Critical Findings Change: {trends['critical_change']}
-
-Trend analysis indicates recurring governance issues requiring continued management focus.
-
-
-7. Management Recommendations
------------------------------
-
-Management should prioritize:
-
-- Strengthening access governance controls
-- Enhancing remediation tracking processes
-- Improving segregation of duties oversight
-- Increasing governance monitoring activities
-- Accelerating remediation of critical findings
-
-
-8. Conclusion
--------------
-
-The audit identified governance and control weaknesses requiring continued remediation oversight and management attention.
-
-Continued improvement of governance processes, access controls, and operational monitoring activities will strengthen the overall control environment.
-
+Generated: {generated_at}
 """
+    )
 
-    return report
+    add_section(
+        sections,
+        "Executive Overview",
+        f"""
+    An audit assessment of the IT control environment was performed to evaluate the effectiveness of governance, access management, and operational control activities supporting the organization’s control framework.
+
+    Overall control environment posture was assessed as:
+    {risk_posture}
+
+    Control deficiencies were identified requiring management attention and remediation oversight.
+    """
+    )
+
+    add_section(
+        sections,
+        "Scope and Objectives",
+        """
+    The review assessed key IT general controls relating to:
+
+    - User access management
+    - Privileged access governance
+    - Segregation of duties
+    - Dormant account monitoring
+    - Identity lifecycle management
+
+    Audit procedures included automated control testing, evidence reconciliation, and governance analytics.
+    """
+    )
+
+    add_section(
+        sections,
+        "Overall Control Environment Assessment",
+        f"""
+    {governance_narrative}
+
+    Risk exposure may result in:
+    - Unauthorized access
+    - Segregation of duties conflicts
+    - Delayed remediation response
+    - Elevated operational and compliance risk
+
+    Management should strengthen governance oversight and remediation monitoring processes.
+    """
+    )
+
+    add_section(
+        sections,
+        "Significant Findings",
+        significant_findings
+    )
+
+    add_section(
+        sections,
+        "Remediation Status",
+        f"""
+    - Total Findings: {metrics['total_findings']}
+    - Open Findings: {metrics['open_findings']}
+    - Closed Findings: {metrics['closed_findings']}
+    - Overdue Findings: {remediation_metrics['overdue_findings']}
+
+    Remediation efforts are underway for identified control deficiencies.
+    """
+    )
+
+    add_section(
+        sections,
+        "Trend Analysis",
+        f"""
+    - Audit Runs Reviewed: {trends['total_runs']}
+    - Findings Change Since Previous Audit: {trends['findings_change']}
+    - Critical Findings Change: {trends['critical_change']}
+
+    Trend analysis indicates recurring governance issues requiring continued management focus.
+    """
+    )
+
+    add_section(
+        sections,
+        "Management Recommendations",
+        """
+    Management should prioritize:
+
+    - Strengthening access governance controls
+    - Enhancing remediation tracking processes
+    - Improving segregation of duties oversight
+    - Increasing governance monitoring activities
+    - Accelerating remediation of critical findings
+    """
+    )
+
+    add_section(
+        sections,
+        "Conclusion",
+        """
+    The audit identified governance and control weaknesses requiring continued remediation oversight and management attention.
+
+    Continued improvement of governance processes, access controls, and operational monitoring activities will strengthen the overall control environment.
+    """
+    )
+
+    return sections
+
+
+def generate_executive_summary(
+    engagement_context: dict,
+    findings: list,
+    metrics: dict,
+    remediation_metrics: dict,
+    trends: dict
+):
+
+    sections = build_executive_report_sections(
+        engagement_context=engagement_context,
+        findings=findings,
+        metrics=metrics,
+        remediation_metrics=remediation_metrics,
+        trends=trends
+    )
+
+    return render_text_report(
+        sections
+    )

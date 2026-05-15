@@ -4,7 +4,8 @@ from datetime import datetime
 def initialize_remediation_fields(
     findings: list
 ):
-
+    from datetime import datetime, timedelta
+    
     for finding in findings:
 
         if "status" not in finding:
@@ -40,6 +41,11 @@ def initialize_remediation_fields(
 
         if "closed_at" not in finding:
             finding["closed_at"] = None
+
+        if "remediation_due_date" not in finding:
+            finding["remediation_due_date"] = (
+                datetime.now() + timedelta(days=30)
+            ).strftime("%Y-%m-%d")
 
         if "created_at" not in finding:
             finding["created_at"] = (
