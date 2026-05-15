@@ -41,6 +41,11 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 python main.py
+python main.py run-audit --limit 10 
+python main.py run-audit --severity Critical
+python main.py metrics --control MFA
+python main.py trends
+python main.py assign-owner FND-MFA-004 "IAM Team"
 
 
 ## Tech Stack

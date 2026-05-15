@@ -63,6 +63,18 @@ from controlforge.analytics.findings_loader import (
     load_saved_findings
 )
 
+from controlforge.analytics.trends import (
+    calculate_trends
+)
+
+from controlforge.history.finding_timeline import (
+    get_finding_timeline
+)
+
+from controlforge.analytics.remediation_metrics import (
+    calculate_remediation_metrics
+)
+
 
 # Define the evidence files to be loaded
 EVIDENCE_FILES = [
@@ -424,6 +436,24 @@ def parse_args():
         type=str,
         help="Filter metrics by control name"
     )
+
+    subparsers.add_parser(
+        "trends",
+        help="Display audit trend analytics"
+    )
+
+    subparsers.add_parser(
+        "remediation-metrics",
+        help="Display remediation lifecycle metrics"
+    )
+
+    timeline_parser = subparsers.add_parser(
+        "finding-history",
+        help="Display workflow history for a finding"
+    )
+
+    timeline_parser.add_argument("finding_id")
+
     return parser.parse_args()
 
 
@@ -442,6 +472,93 @@ def display_metrics(metrics: dict):
         ["Medium Findings", metrics["medium_findings"]],
         ["Low Findings", metrics["low_findings"]],
         ["Unassigned Findings", metrics["unassigned_findings"]]
+    ]
+
+    print(
+        tabulate(
+            rows,
+            headers=["Metric", "Value"],
+            tablefmt="grid"
+        )
+    )
+
+
+def display_trends(trends: dict):
+
+    print("\nAudit Trend Analytics")
+    print("=====================")
+
+    rows = [
+        ["Total Audit Runs", trends["total_runs"]],
+        ["Latest Total Findings", trends["latest_total_findings"]],
+        ["Previous Total Findings", trends["previous_total_findings"]],
+        ["Findings Change", trends["findings_change"]],
+        ["Latest Critical Findings", trends["latest_critical_findings"]],
+        ["Previous Critical Findings", trends["previous_critical_findings"]],
+        ["Critical Findings Change", trends["critical_change"]]
+    ]
+
+    print(
+        tabulate(
+            rows,
+            headers=["Metric", "Value"],
+            tablefmt="grid"
+        )
+    )
+
+def display_finding_timeline(
+    timeline: list,
+    finding_id: str
+):
+
+    if not timeline:
+        print(f"\nNo workflow history found for {finding_id}.")
+        return
+
+    print(f"\nWorkflow Timeline for {finding_id}")
+    print("==============================")
+
+    rows = []
+
+    for event in timeline:
+
+        rows.append([
+            event.get("timestamp"),
+            event.get("action"),
+            event.get("performed_by"),
+            event.get("client_name"),
+            event.get("engagement_id")
+        ])
+
+    print(
+        tabulate(
+            rows,
+            headers=[
+                "Timestamp",
+                "Action",
+                "Performed By",
+                "Client",
+                "Engagement"
+            ],
+            tablefmt="grid"
+        )
+    )
+
+
+def display_remediation_metrics(metrics: dict):
+
+    print("\nRemediation Metrics")
+    print("===================")
+
+    rows = [
+        ["Total Findings", metrics["total_findings"]],
+        ["Open Findings", metrics["open_findings"]],
+        ["Closed Findings", metrics["closed_findings"]],
+        ["Overdue Findings", metrics["overdue_findings"]],
+        [
+            "Average Closure Time",
+            f"{metrics['average_closure_time_days']} days"
+        ]
     ]
 
     print(
@@ -486,6 +603,50 @@ def main():
         )
 
         display_metrics(metrics)
+
+        return
+    
+    if args.command == "trends":
+
+        audit_history = history_manager.load_history()
+
+        trends = calculate_trends(
+            audit_history
+        )
+
+        display_trends(trends)
+
+        return
+    
+    if args.command == "remediation-metrics":
+
+        findings = load_saved_findings(
+            paths["findings"]
+        )
+
+        metrics = calculate_remediation_metrics(
+            findings
+        )
+
+        display_remediation_metrics(
+            metrics
+        )
+
+        return
+    
+    if args.command == "finding-history":
+
+        logs = execution_logger.load_logs()
+
+        timeline = get_finding_timeline(
+            logs=logs,
+            finding_id=args.finding_id
+        )
+
+        display_finding_timeline(
+            timeline=timeline,
+            finding_id=args.finding_id
+        )
 
         return
 
@@ -549,6 +710,7 @@ def main():
         ad_df,
         threshold_days=90
     )
+    
     dormant_findings = generate_dormant_account_findings(
         dormant_accounts,
         engagement_context

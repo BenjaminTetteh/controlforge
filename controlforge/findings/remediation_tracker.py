@@ -1,30 +1,51 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 
 def initialize_remediation_fields(
     findings: list
-) -> list:
+):
 
     for finding in findings:
 
-        finding["status"] = "Open"
-        finding["remediation_owner"] = "Unassigned"
+        if "status" not in finding:
+            finding["status"] = "Open"
 
-        finding["remediation_due_date"] = (
-            datetime.now() + timedelta(days=30)
-        ).strftime("%Y-%m-%d")
+        if "remediation_owner" not in finding:
+            finding["remediation_owner"] = (
+                "Unassigned"
+            )
 
-        finding["remediation_notes"] = ""
-        finding["remediation_status"] = "Pending"
+        if "remediation_status" not in finding:
+            finding["remediation_status"] = (
+                "Not Started"
+            )
 
-        finding["remediation_evidence"] = ""
-        finding["remediation_submitted_at"] = ""
+        if "remediation_evidence" not in finding:
+            finding["remediation_evidence"] = None
 
-        finding["validated_by_auditor"] = False
-        finding["auditor_validation_notes"] = ""
-        finding["validated_at"] = ""
+        if "remediation_submitted_at" not in finding:
+            finding["remediation_submitted_at"] = None
 
-        finding["closure_approved"] = False
-        finding["closed_at"] = ""
+        if "validated_by_auditor" not in finding:
+            finding["validated_by_auditor"] = False
+
+        if "auditor_validation_notes" not in finding:
+            finding["auditor_validation_notes"] = None
+
+        if "validated_at" not in finding:
+            finding["validated_at"] = None
+
+        if "closure_approved" not in finding:
+            finding["closure_approved"] = False
+
+        if "closed_at" not in finding:
+            finding["closed_at"] = None
+
+        if "created_at" not in finding:
+            finding["created_at"] = (
+                datetime.now().strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                )
+            )
 
     return findings

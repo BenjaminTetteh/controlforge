@@ -167,5 +167,37 @@
         "auditor_name": "Benjamin Tetteh",
         "controls_executed": 5,
         "total_findings": 67
+    },
+    {
+        "event_type": "workflow_action",
+        "action": "assign_owner",
+        "finding_id": "FND-MFA-004",
+        "performed_by": "Benjamin Tetteh",
+        "client_name": "Meridian Financial Group",
+        "engagement_id": "2026-Q2-SOX-ITGC",
+        "framework": "SOX",
+        "audit_period": "Q2 2026",
+        "timestamp": "2026-05-15 04:58:20"
+    },
+    {
+        "event_type": "workflow_action",
+        "action": "close_finding",
+        "finding_id": "FND-MFA-004",
+        "performed_by": "Benjamin Tetteh",
+        "client_name": "Meridian Financial Group",
+        "engagement_id": "2026-Q2-SOX-ITGC",
+        "framework": "SOX",
+        "audit_period": "Q2 2026",
+        "timestamp": "2026-05-15 04:58:32"
+    },
+    {
+        "execution_timestamp": "2026-05-15 04:58:43",
+        "client_name": "Meridian Financial Group",
+        "engagement_id": "2026-Q2-SOX-ITGC",
+        "framework": "SOX",
+        "audit_period": "Q2 2026",
+        "auditor_name": "Benjamin Tetteh",
+        "controls_executed": 5,
+        "total_findings": 67
     }
 ]
