@@ -18,6 +18,9 @@ from controlforge.reports.risk_narrative_generator import (
     generate_risk_concentration_narrative
 )
 
+from controlforge.reports.adaptive_narrative_generator import (
+    generate_adaptive_governance_narrative
+)
 
 def determine_risk_posture(
     metrics: dict
@@ -197,6 +200,21 @@ def build_executive_report_sections(
         metrics
     )
 
+    critical_trend = "Stable"
+
+    if trends.get("critical_change", 0) < 0:
+        critical_trend = "Improving"
+
+    if trends.get("critical_change", 0) > 0:
+        critical_trend = "Deteriorating"
+
+    adaptive_narrative = generate_adaptive_governance_narrative(
+        governance_posture=risk_posture,
+        maturity_level="",
+        critical_findings=metrics["critical_findings"],
+        trend=critical_trend
+    )
+
     significant_findings = (
         build_significant_findings(
             findings
@@ -258,7 +276,7 @@ Generated: {generated_at}
     Overall control environment posture was assessed as:
     {risk_posture}
 
-    Control deficiencies were identified requiring management attention and remediation oversight.
+    {adaptive_narrative}
     """
     )
 

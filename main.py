@@ -155,6 +155,10 @@ from controlforge.reports.governance_heatmap import (
     generate_governance_heatmap
 )
 
+from controlforge.frameworks.remediation_prioritizer import (
+    generate_remediation_priorities
+)
+
 
 # Define the evidence files to be loaded
 EVIDENCE_FILES = [
@@ -570,6 +574,11 @@ def parse_args():
         help="Display governance risk concentration by domain"
     )
 
+    subparsers.add_parser(
+        "remediation-priorities",
+        help="Display prioritized governance remediation areas"
+    )
+
     executive_report_parser = subparsers.add_parser(
         "executive-report",
         help="Generate executive governance summary report"
@@ -918,6 +927,46 @@ def display_risk_concentration(
     )
 
 
+def display_remediation_priorities(
+    priorities: list
+):
+
+    if not priorities:
+        print("\nNo remediation priorities available.")
+        return
+
+    rows = []
+
+    rank = 1
+
+    for item in priorities:
+
+        rows.append([
+            rank,
+            item["domain"],
+            item["risk_level"],
+            item["priority_score"]
+        ])
+
+        rank += 1
+
+    print("\nGovernance Remediation Priorities")
+    print("=================================")
+
+    print(
+        tabulate(
+            rows,
+            headers=[
+                "Priority",
+                "Domain",
+                "Risk Level",
+                "Priority Score"
+            ],
+            tablefmt="grid"
+        )
+    )
+
+
 def main():
     args = parse_args()
     if args.command == "create-engagement":
@@ -952,6 +1001,26 @@ def main():
     execution_logger = ExecutionLogger(
         paths["logs"]
     )
+
+    if args.command == "remediation-priorities":
+
+        findings = load_saved_findings(
+            paths["findings"]
+        )
+
+        concentrations = analyze_risk_concentration(
+            findings
+        )
+
+        priorities = generate_remediation_priorities(
+            concentrations
+        )
+
+        display_remediation_priorities(
+            priorities
+        )
+
+        return
 
     if args.command == "risk-concentration":
 
