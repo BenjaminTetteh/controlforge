@@ -12,7 +12,7 @@ Audit Period: Q2 2026
 
 Prepared By: Benjamin Tetteh
 
-Generated: 2026-05-16 09:50:39
+Generated: 2026-05-16 09:57:31
 
 
 Executive Overview
@@ -57,6 +57,11 @@ Overall Control Environment Assessment
 
     Management should strengthen governance oversight and remediation monitoring processes.
     
+
+Risk Concentration Analysis
+---------------------------
+
+Risk concentration analysis indicates the highest governance exposure exists within Identity and Access Management, followed by Access Governance. Management attention should prioritize remediation activities within these domains to reduce operational and compliance risk exposure.
 
 Significant Findings
 --------------------

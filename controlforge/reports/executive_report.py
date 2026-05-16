@@ -10,6 +10,15 @@ from controlforge.reports.report_builder import (
     render_text_report
 )
 
+from controlforge.frameworks.risk_concentration_analyzer import (
+    analyze_risk_concentration
+)
+
+from controlforge.reports.risk_narrative_generator import (
+    generate_risk_concentration_narrative
+)
+
+
 def determine_risk_posture(
     metrics: dict
 ): 
@@ -210,6 +219,15 @@ def build_executive_report_sections(
         )
     )
 
+    risk_concentrations = analyze_risk_concentration(
+        findings
+    )
+
+    risk_concentration_narrative = (
+        generate_risk_concentration_narrative(
+            risk_concentrations
+        )
+    )
 
     sections = []
 
@@ -275,6 +293,12 @@ Generated: {generated_at}
 
     Management should strengthen governance oversight and remediation monitoring processes.
     """
+    )
+
+    add_section(
+        sections,
+        "Risk Concentration Analysis",
+        risk_concentration_narrative
     )
 
     add_section(
