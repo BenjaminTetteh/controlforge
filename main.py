@@ -159,6 +159,10 @@ from controlforge.frameworks.remediation_prioritizer import (
     generate_remediation_priorities
 )
 
+from controlforge.frameworks.remediation_roadmap_generator import (
+    generate_remediation_roadmap
+)
+
 
 # Define the evidence files to be loaded
 EVIDENCE_FILES = [
@@ -444,7 +448,7 @@ def handle_workflow_actions(
 
     return False
 
-
+# Define command-line arguments and subcommands
 def parse_args():
     parser = argparse.ArgumentParser(
         description="ControlForge IT Audit Automation Engine"
@@ -577,6 +581,11 @@ def parse_args():
     subparsers.add_parser(
         "remediation-priorities",
         help="Display prioritized governance remediation areas"
+    )
+
+    subparsers.add_parser(
+        "remediation-roadmap",
+        help="Display phased governance remediation roadmap"
     )
 
     executive_report_parser = subparsers.add_parser(
@@ -967,6 +976,40 @@ def display_remediation_priorities(
     )
 
 
+def display_remediation_roadmap(
+    roadmap: list
+):
+
+    if not roadmap:
+        print("\nNo remediation roadmap available.")
+        return
+
+    rows = []
+
+    for item in roadmap:
+
+        rows.append([
+            item["phase"],
+            item["domain"],
+            item["action"]
+        ])
+
+    print("\nGovernance Remediation Roadmap")
+    print("================================")
+
+    print(
+        tabulate(
+            rows,
+            headers=[
+                "Phase",
+                "Governance Domain",
+                "Remediation Action"
+            ],
+            tablefmt="grid"
+        )
+    )
+
+
 def main():
     args = parse_args()
     if args.command == "create-engagement":
@@ -1001,6 +1044,30 @@ def main():
     execution_logger = ExecutionLogger(
         paths["logs"]
     )
+
+    if args.command == "remediation-roadmap":
+
+        findings = load_saved_findings(
+            paths["findings"]
+        )
+
+        concentrations = analyze_risk_concentration(
+            findings
+        )
+
+        priorities = generate_remediation_priorities(
+            concentrations
+        )
+
+        roadmap = generate_remediation_roadmap(
+            priorities
+        )
+
+        display_remediation_roadmap(
+            roadmap
+        )
+
+        return
 
     if args.command == "remediation-priorities":
 
