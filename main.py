@@ -147,6 +147,10 @@ from controlforge.frameworks.governance_snapshot_manager import (
     load_previous_snapshot
 )
 
+from controlforge.frameworks.risk_concentration_analyzer import (
+    analyze_risk_concentration
+)
+
 
 # Define the evidence files to be loaded
 EVIDENCE_FILES = [
@@ -557,6 +561,11 @@ def parse_args():
         help="Display governance posture trends"
     )
 
+    subparsers.add_parser(
+        "risk-concentration",
+        help="Display governance risk concentration by domain"
+    )
+
     executive_report_parser = subparsers.add_parser(
         "executive-report",
         help="Generate executive governance summary report"
@@ -868,6 +877,43 @@ def display_governance_trends(
     )
 
 
+def display_risk_concentration(
+    concentrations: list
+):
+
+    if not concentrations:
+        print("\nNo risk concentration data available.")
+        return
+
+    rows = []
+
+    for item in concentrations:
+        rows.append([
+            item["domain"],
+            item["critical"],
+            item["high"],
+            item["medium"],
+            item["risk_level"]
+        ])
+
+    print("\nGovernance Risk Concentration")
+    print("=============================")
+
+    print(
+        tabulate(
+            rows,
+            headers=[
+                "Domain",
+                "Critical",
+                "High",
+                "Medium",
+                "Risk Level"
+            ],
+            tablefmt="grid"
+        )
+    )
+
+
 def main():
     args = parse_args()
     if args.command == "create-engagement":
@@ -902,6 +948,22 @@ def main():
     execution_logger = ExecutionLogger(
         paths["logs"]
     )
+
+    if args.command == "risk-concentration":
+
+        findings = load_saved_findings(
+            paths["findings"]
+        )
+
+        concentrations = analyze_risk_concentration(
+            findings
+        )
+
+        display_risk_concentration(
+            concentrations
+        )
+
+        return
 
     if args.command == "governance-trends":
 
