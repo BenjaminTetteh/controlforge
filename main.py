@@ -163,6 +163,10 @@ from controlforge.frameworks.remediation_roadmap_generator import (
     generate_remediation_roadmap
 )
 
+from controlforge.frameworks.governance_kpi_generator import (
+    generate_governance_kpis
+)
+
 
 # Define the evidence files to be loaded
 EVIDENCE_FILES = [
@@ -588,6 +592,11 @@ def parse_args():
         help="Display phased governance remediation roadmap"
     )
 
+    subparsers.add_parser(
+        "governance-kpis",
+        help="Display governance KPI dashboard"
+    )
+
     executive_report_parser = subparsers.add_parser(
         "executive-report",
         help="Generate executive governance summary report"
@@ -1010,6 +1019,30 @@ def display_remediation_roadmap(
     )
 
 
+def display_governance_kpis(
+    kpis: dict
+):
+
+    print("\nGovernance KPI Dashboard")
+    print("========================")
+
+    rows = [
+        ["Governance Posture", kpis["governance_posture"]],
+        ["Control Coverage", f"{kpis['control_coverage']}%"],
+        ["Critical Risk Domains", kpis["critical_risk_domains"]],
+        ["Remediation Progress", f"{kpis['remediation_progress']}%"],
+        ["Governance Trend", kpis["governance_trend"]]
+    ]
+
+    print(
+        tabulate(
+            rows,
+            headers=["KPI", "Value"],
+            tablefmt="grid"
+        )
+    )
+
+
 def main():
     args = parse_args()
     if args.command == "create-engagement":
@@ -1044,6 +1077,53 @@ def main():
     execution_logger = ExecutionLogger(
         paths["logs"]
     )
+
+    if args.command == "governance-kpis":
+
+        findings = load_saved_findings(
+            paths["findings"]
+        )
+
+        scorecard = generate_governance_scorecard(
+            framework_code=engagement_context["framework"],
+            engagement_path=paths["base"],
+            findings=findings
+        )
+
+        concentrations = analyze_risk_concentration(
+            findings
+        )
+
+        previous_scorecard = load_previous_snapshot(
+            paths["base"]
+        )
+
+        if previous_scorecard:
+
+            trends = analyze_governance_trends(
+                current_scorecard=scorecard,
+                previous_scorecard=previous_scorecard
+            )
+
+        else:
+
+            trends = {
+                "coverage_trend": "Stable",
+                "critical_findings_trend": "Stable",
+                "open_findings_trend": "Stable"
+            }
+
+        kpis = generate_governance_kpis(
+            scorecard=scorecard,
+            concentrations=concentrations,
+            trends=trends
+        )
+
+        display_governance_kpis(
+            kpis
+        )
+
+        return
 
     if args.command == "remediation-roadmap":
 
