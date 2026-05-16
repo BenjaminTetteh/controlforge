@@ -134,6 +134,10 @@ from controlforge.frameworks.governance_scorecard import (
     generate_governance_scorecard
 )
 
+from controlforge.frameworks.governance_trend_analyzer import (
+    analyze_governance_trends
+)
+
 
 # Define the evidence files to be loaded
 EVIDENCE_FILES = [
@@ -539,6 +543,11 @@ def parse_args():
         help="Display executive governance scorecard"
     )
 
+    subparsers.add_parser(
+        "governance-trends",
+        help="Display governance posture trends"
+    )
+
     executive_report_parser = subparsers.add_parser(
         "executive-report",
         help="Generate executive governance summary report"
@@ -828,6 +837,28 @@ def display_governance_scorecard(
     )
 
 
+def display_governance_trends(
+    trends: dict
+):
+
+    print("\nGovernance Trend Analysis")
+    print("=========================")
+
+    rows = [
+        ["Coverage Trend", trends["coverage_trend"]],
+        ["Critical Findings Trend", trends["critical_findings_trend"]],
+        ["Open Findings Trend", trends["open_findings_trend"]]
+    ]
+
+    print(
+        tabulate(
+            rows,
+            headers=["Metric", "Trend"],
+            tablefmt="grid"
+        )
+    )
+
+
 def main():
     args = parse_args()
     if args.command == "create-engagement":
@@ -862,6 +893,35 @@ def main():
     execution_logger = ExecutionLogger(
         paths["logs"]
     )
+
+    if args.command == "governance-trends":
+
+        findings = load_saved_findings(
+            paths["findings"]
+        )
+
+        current_scorecard = generate_governance_scorecard(
+            framework_code=engagement_context["framework"],
+            engagement_path=paths["base"],
+            findings=findings
+        )
+
+        previous_scorecard = {
+            "coverage_percent": 75,
+            "critical_findings": 18,
+            "open_findings": 80
+        }
+
+        trends = analyze_governance_trends(
+            current_scorecard=current_scorecard,
+            previous_scorecard=previous_scorecard
+        )
+
+        display_governance_trends(
+            trends
+        )
+
+        return
 
     if args.command == "governance-scorecard":
 
