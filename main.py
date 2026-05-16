@@ -151,6 +151,10 @@ from controlforge.frameworks.risk_concentration_analyzer import (
     analyze_risk_concentration
 )
 
+from controlforge.reports.governance_heatmap import (
+    generate_governance_heatmap
+)
+
 
 # Define the evidence files to be loaded
 EVIDENCE_FILES = [
@@ -1181,11 +1185,23 @@ def main():
             trends=trends
         )
 
+        concentrations = analyze_risk_concentration(
+            findings
+        )
+
+        heatmap_chart = generate_governance_heatmap(
+            concentrations=concentrations,
+            output_dir=paths["reports"] / "charts"
+        )
+
         export_sections_to_pdf(
             sections=sections,
             output_path=paths["reports"],
             filename="executive_report.pdf",
-            chart_paths=[severity_chart]
+            chart_paths=[
+                severity_chart,
+                heatmap_chart
+            ]
         )
 
         return
