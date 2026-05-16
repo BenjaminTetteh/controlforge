@@ -1,0 +1,9 @@
+{
+    "framework": "SOX",
+    "coverage_percent": 100.0,
+    "maturity_level": "Optimized",
+    "governance_posture": "Strong",
+    "critical_findings": 13,
+    "open_findings": 66,
+    "total_findings": 67
+}

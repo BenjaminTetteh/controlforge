@@ -138,6 +138,15 @@ from controlforge.frameworks.governance_trend_analyzer import (
     analyze_governance_trends
 )
 
+from controlforge.frameworks.governance_snapshot_manager import (
+    save_governance_snapshot
+)
+
+from controlforge.frameworks.governance_snapshot_manager import (
+    save_governance_snapshot,
+    load_previous_snapshot
+)
+
 
 # Define the evidence files to be loaded
 EVIDENCE_FILES = [
@@ -906,11 +915,13 @@ def main():
             findings=findings
         )
 
-        previous_scorecard = {
-            "coverage_percent": 75,
-            "critical_findings": 18,
-            "open_findings": 80
-        }
+        previous_scorecard = load_previous_snapshot(
+            paths["base"]
+        )
+
+        if previous_scorecard is None:
+            print("\nNot enough governance snapshot history to calculate trends.")
+            return
 
         trends = analyze_governance_trends(
             current_scorecard=current_scorecard,
@@ -938,6 +949,14 @@ def main():
         display_governance_scorecard(
             scorecard
         )
+
+        snapshot_file = save_governance_snapshot(
+            engagement_path=paths["base"],
+            scorecard=scorecard
+        )
+
+        print("\nGovernance snapshot saved:")
+        print(f"- {snapshot_file}")
 
         return
 
