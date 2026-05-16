@@ -130,6 +130,10 @@ from controlforge.controls.implemented_control_manager import (
     disable_control
 )
 
+from controlforge.frameworks.governance_scorecard import (
+    generate_governance_scorecard
+)
+
 
 # Define the evidence files to be loaded
 EVIDENCE_FILES = [
@@ -530,6 +534,11 @@ def parse_args():
         help="Display framework control coverage analytics"
     )
 
+    subparsers.add_parser(
+        "governance-scorecard",
+        help="Display executive governance scorecard"
+    )
+
     executive_report_parser = subparsers.add_parser(
         "executive-report",
         help="Generate executive governance summary report"
@@ -793,6 +802,32 @@ def display_control_coverage(
     )
 
 
+def display_governance_scorecard(
+    scorecard: dict
+):
+
+    print("\nGovernance Scorecard")
+    print("====================")
+
+    rows = [
+        ["Framework", scorecard["framework"]],
+        ["Coverage", f"{scorecard['coverage_percent']}%"],
+        ["Maturity", scorecard["maturity_level"]],
+        ["Governance Posture", scorecard["governance_posture"]],
+        ["Critical Findings", scorecard["critical_findings"]],
+        ["Open Findings", scorecard["open_findings"]],
+        ["Total Findings", scorecard["total_findings"]]
+    ]
+
+    print(
+        tabulate(
+            rows,
+            headers=["Metric", "Value"],
+            tablefmt="grid"
+        )
+    )
+
+
 def main():
     args = parse_args()
     if args.command == "create-engagement":
@@ -827,6 +862,24 @@ def main():
     execution_logger = ExecutionLogger(
         paths["logs"]
     )
+
+    if args.command == "governance-scorecard":
+
+        findings = load_saved_findings(
+            paths["findings"]
+        )
+
+        scorecard = generate_governance_scorecard(
+            framework_code=engagement_context["framework"],
+            engagement_path=paths["base"],
+            findings=findings
+        )
+
+        display_governance_scorecard(
+            scorecard
+        )
+
+        return
 
     if args.command == "enable-control":
 
