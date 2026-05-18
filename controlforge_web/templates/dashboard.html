@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}
+ControlForge Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h2>Engagement Overview</h2>
+
+<ul>
+    <li><strong>Client:</strong> {{ engagement.client_name }}</li>
+    <li><strong>Engagement ID:</strong> {{ engagement.engagement_id }}</li>
+    <li><strong>Framework:</strong> {{ engagement.framework }}</li>
+    <li><strong>Audit Period:</strong> {{ engagement.audit_period }}</li>
+    <li><strong>Auditor:</strong> {{ engagement.auditor_name }}</li>
+</ul>
+
+<h2>Governance KPIs</h2>
+
+<div class="card-grid">
+
+    <div class="kpi-card {{ kpi_classes.governance_posture }}">
+        <h3>Governance Posture</h3>
+        <p>{{ kpis.governance_posture }}</p>
+    </div>
+
+    <div class="kpi-card">
+        <h3>Control Coverage</h3>
+        <p>{{ kpis.control_coverage }}%</p>
+    </div>
+
+    <div class="kpi-card">
+        <h3>Critical Risk Domains</h3>
+        <p>{{ kpis.critical_risk_domains }}</p>
+    </div>
+
+    <div class="kpi-card">
+        <h3>Remediation Progress</h3>
+        <p>{{ kpis.remediation_progress }}%</p>
+    </div>
+
+    <div class="kpi-card {{ kpi_classes.governance_trend }}">
+        <h3>Governance Trend</h3>
+        <p>{{ kpis.governance_trend }}</p>
+    </div>
+
+</div>
+
+
+<h2>Risk Concentration</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Domain</th>
+            <th>Critical</th>
+            <th>High</th>
+            <th>Medium</th>
+            <th>Risk Level</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for item in concentrations %}
+        <tr>
+            <td>{{ item.domain }}</td>
+            <td>{{ item.critical }}</td>
+            <td>{{ item.high }}</td>
+            <td>{{ item.medium }}</td>
+            <td>{{ item.risk_level }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
